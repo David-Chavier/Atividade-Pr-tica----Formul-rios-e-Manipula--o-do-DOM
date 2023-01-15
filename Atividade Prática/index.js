@@ -18,76 +18,41 @@ function verificar() {
         return input.checked;
     }).length;
 } 
-document.getElementById('botton-login').addEventListener('click', () => {
+
+document.getElementById('formulario').addEventListener("submit", (evento) => {
+    evento.preventDefault()
     let valido = verificar();
+    
     if (!valido){
 
-        const dados = document.getElementById('formulario')
-
-        dados.addEventListener("submit", (evento) => {
-            evento.preventDefault()
-            console.clear()
-        })
-
-        alert('Falta escolher uma checkbox!')
-      
-    }else{
-        passouValidaçao()
+        return alert('Falta escolher uma checkbox!')
 
     }
-});
 
-function passouValidaçao(){
-    const dados = document.getElementById('formulario')
+    const nome = document.getElementById('nome').value
+    const endereço = document.getElementById('endereço').value
+    const cidade = document.getElementById('cidade').value
+    const estado = document.getElementById('estado').value
+    const cargo = document.querySelector('input[name="cargo"]:checked').value
+    const curriculo = document.getElementById('curriculo').value
+    let areasSelecionadas = [];
+    const area = document.querySelectorAll('input[name="area"]:checked')
 
-    dados.addEventListener("submit", (evento) => {
-        evento.preventDefault()
-  
-        const nome = document.getElementById('nome').value
+    for (let i = 0; i < area.length; i++) {
+        areasSelecionadas.push(area[i].value);
 
-        const endereço = document.getElementById('endereço').value
+    }
+    
 
-        const cidade = document.getElementById('cidade').value
-
-        const estado = document.getElementById('estado').value
-
-        const cargo = document.querySelector('input[name="cargo"]:checked').value
-
-        let resultadoCheckbox = []
-
-        const checkboxComputaçao = document.getElementById('computaçao')
-        if(checkboxComputaçao.checked){
-            resultadoCheckbox.push(checkboxComputaçao.value)
-        }
-        const checkboxBiologia = document.getElementById('biologia')
-        if(checkboxBiologia.checked){
-            resultadoCheckbox.push(checkboxBiologia.value)
-        }
-        const checkboxAmbiente = document.getElementById('ambiente')
-        if(checkboxAmbiente.checked){
-            resultadoCheckbox.push(checkboxAmbiente.value)
-        }
-        const checkboxEngenharia = document.getElementById('engenharia')
-        if(checkboxEngenharia.checked){
-            resultadoCheckbox.push(checkboxEngenharia.value)
-        }
-        const checkboxHistoria = document.getElementById('historia')
-        if(checkboxHistoria.checked){
-            resultadoCheckbox.push(checkboxHistoria.value)
-        }
-
-        const curriculo = document.getElementById('curriculo').value
-
-        let usuario = {
-            nome: nome,
-            endereço: endereço,
-            cidade: cidade,
-            estado: estado,
-            cargo: cargo,
-            checkbox: resultadoCheckbox,
-            curriculo: curriculo
-        }
-        console.clear()
-        console.log(usuario)
-    })
-}
+    let usuario = {
+        nome: nome,
+        endereço: endereço,
+        cidade: cidade,
+        estado: estado,
+        cargo: cargo,
+        checkbox: areasSelecionadas,
+        curriculo: curriculo
+    }
+    console.clear()
+    console.log(usuario)
+})
